@@ -25,10 +25,10 @@ app.get("/newsg1to", (request, response) => {
     /Veja mais notícias da região no G1 Tocantins./,
     "ig"
   );
-
+  
   Feed.load("https://g1.globo.com/rss/g1/to/tocantins/", function(err, rss) {
     var { items } = rss;
-
+    response.setHeader('Cache-Control', 's-max-age=300, stale-while-revalidate');
     response.json(
       items.map(it => ({
         uid: it.id,
@@ -49,7 +49,7 @@ app.get("/newstjto", (request, response) => {
     "http://www.tjto.jus.br/index.php/noticias?format=feed&type=rss",
     function(err, rss) {
       var { items } = rss;
-
+      response.setHeader('Cache-Control', 's-max-age=300, stale-while-revalidate');
       response.json(
         items.map(it => ({
           uid: it.id,
